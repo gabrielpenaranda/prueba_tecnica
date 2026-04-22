@@ -21,7 +21,7 @@ class ImageController extends Controller
         $user = auth()->user();
 
         $userImage = 'storage/images/user_' . $user->id . '.jpg';
-        $companyImage = $user->company ? 'storage/images/company_' . $user->company->id . '.jpg' : null;
+        $companyImage = 'storage/images/company_' . $user->company->id . '.jpg';
 
         $data = [
             'userImage' => $userImage,

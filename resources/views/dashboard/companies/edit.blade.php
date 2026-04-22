@@ -131,7 +131,7 @@
                             <div>
                                 <x-input-label for="fecha_concurso_acreedores" :value="__('Fecha Concurso')" />
                                 <x-text-input id="fecha_concurso_acreedores" name="fecha_concurso_acreedores"
-                                    type="date" class="mt-1 block w-full" :value="old('fecha_concurso_acreedores', $company->fecha_concurso_acreedores)" />
+                                    type="date" class="mt-1 block w-echaull" :value="old('fecha_concurso_acreedores', $company->fecha_concurso_acreedores)" />
                                 <x-input-error class="mt-2" :messages="$errors->get('fecha_concurso_acreedores')" />
                             </div>
                         </div>
@@ -141,21 +141,21 @@
                                     id="concurso_acreedores_autoliquidacion_preconcursal" value="1" {{ old('concurso_acreedores_autoliquidacion_preconcursal', $company->concurso_acreedores_autoliquidacion_preconcursal) ? 'checked' : '' }}
                                     class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                                 <label for="concurso_acreedores_autoliquidacion_preconcursal"
-                                    class="ms-2 text-sm text-gray-600">{{ __('Autoliq. Preconcursal') }}</label>
+                                    class="ms-2 text-sm text-gray-600">{{ __('Autoliquidación Preconcursal') }}</label>
                             </div>
                             <div class="flex items-center">
                                 <input type="checkbox" name="concurso_acreedores_autoliquidacion_postconcursal"
                                     id="concurso_acreedores_autoliquidacion_postconcursal" value="1" {{ old('concurso_acreedores_autoliquidacion_postconcursal', $company->concurso_acreedores_autoliquidacion_postconcursal) ? 'checked' : '' }}
                                     class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
                                 <label for="concurso_acreedores_autoliquidacion_postconcursal"
-                                    class="ms-2 text-sm text-gray-600">{{ __('Autoliq. Postconcursal') }}</label>
+                                    class="ms-2 text-sm text-gray-600">{{ __('Autoliquidación Postconcursal') }}</label>
                             </div>
                         </div>
                     </div>
 
                     <!-- Others -->
                     <div class="pt-4 border-t border-gray-100">
-                        <x-input-label for="volumen_operaciones_modelo_390" :value="__('Volumen Operaciones Mod. 390')" />
+                        <x-input-label for="volumen_operaciones_modelo_390" :value="__('Volumen de Operaciones Modelo 390')" />
                         <x-text-input id="volumen_operaciones_modelo_390" name="volumen_operaciones_modelo_390"
                             type="number" step="0.01" class="mt-1 block w-full"
                             :value="old('volumen_operaciones_modelo_390', $company->volumen_operaciones_modelo_390)" />

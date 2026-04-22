@@ -42,7 +42,8 @@
                                 <p><strong>Declarado en Concurso de Acreedores:</strong>
                                     {{ Auth::user()->company->declarado_concurso_acreedores ? "Sí" : "No" }}</p>
                                 <p><strong>Fecha Concurso Acreedores:</strong>
-                                    {{ Auth::user()->company->fecha_concurso_acreedores ?? "---" }}</p>
+                                    {{ Auth::user()->company->fecha_concurso_acreedores ? \Carbon\Carbon::parse(Auth::user()->company->fecha_concurso_acreedores)->format('d/m/Y') : "---" }}
+                                </p>
                                 <p><strong>Autoliquidación Conjunta:</strong>
                                     {{ Auth::user()->company->concurso_acreedores_autoliquidacion_preconcursal ? "Sí" : "No" }}
                                 </p>

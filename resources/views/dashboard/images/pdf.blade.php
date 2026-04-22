@@ -35,11 +35,9 @@
         <img src="{{ public_path($userImage) }}" alt="User Image">
     </div>
 
-    @if($companyImage)
-        <div class="image-container">
-            <img src="{{ public_path($companyImage) }}" alt="Company Image">
-        </div>
-    @endif
+    <div class="image-container">
+        <img src="{{ public_path($companyImage) }}" alt="Company Image">
+    </div>
 </body>
 
 </html>

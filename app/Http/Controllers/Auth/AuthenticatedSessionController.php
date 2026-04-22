@@ -19,6 +19,7 @@ class AuthenticatedSessionController extends Controller
     {
         $this->imageService = $imageService;
     }
+
     /**
      * Display the login view.
      */

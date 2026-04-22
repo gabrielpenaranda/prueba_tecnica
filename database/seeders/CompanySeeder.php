@@ -20,9 +20,15 @@ class CompanySeeder extends Seeder
         ]);
 
         Company::create([
-            'business_name' => 'Innovatech Services',
+            'business_name' => 'Innovatech Services Inc.',
             'phone' => '987654321',
             'email' => 'info@innovatech.com',
+        ]);
+
+        Company::create([
+            'business_name' => 'Global Business Inc.',
+            'phone' => '123123123',
+            'email' => 'info@global.com',
         ]);
     }
 }

@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageGenerationService
 {
-    protected $fontPath = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';
+    protected $fontPath;
     protected $manager;
 
     public function __construct()
     {
+        $this->fontPath = public_path('fonts/DejaVuSans.ttf');
         $this->manager = new ImageManager(new Driver());
     }
 
@@ -35,9 +36,25 @@ class ImageGenerationService
         }
 
         // Nombre
-        $img->text($user->name, $width / 2, 280, function ($font) {
+        $img->text($user->name, $width / 2, 240, function ($font) {
             $font->file($this->fontPath);
             $font->size(36);
+            $font->color('#1f2937'); // gray-800
+            $font->align('center');
+            // valign() eliminado por no existir en esta version
+        });
+
+        $img->text($user->email, $width / 2, 280, function ($font) {
+            $font->file($this->fontPath);
+            $font->size(24);
+            $font->color('#1f2937'); // gray-800
+            $font->align('center');
+            // valign() eliminado por no existir en esta version
+        });
+
+        $img->text($user->company->business_name, $width / 2, 340, function ($font) {
+            $font->file($this->fontPath);
+            $font->size(30);
             $font->color('#1f2937'); // gray-800
             $font->align('center');
             // valign() eliminado por no existir en esta version
@@ -63,17 +80,16 @@ class ImageGenerationService
 
         // Canvas
         $width = 800;
-        $height = 1000;
+        $height = 800;
         $img = $this->manager->createImage($width, $height)->fill('#ffffff');
 
         // Nombre Compañia
-        $img->text($company->business_name, 50, 50, function ($font) {
+        /* $img->text($company->business_name, 50, 50, function ($font) {
             $font->file($this->fontPath);
             $font->size(32);
             $font->color('#1f2937');
             $font->align('left');
-            // valign() eliminado
-        });
+        }); */
 
         // Compañia
         $data = [
@@ -81,18 +97,23 @@ class ImageGenerationService
             'Email' => $company->email,
             'IBAN AEAT' => $company->iban_para_aeat,
             'SWIFT/BIC AEAT' => $company->swift_bic_para_aeat,
-            'Reg. Dev. Mensual' => $company->inscrito_registro_devolucion_mensual ? 'Sí' : 'No',
-            'Régimen Simplificado' => $company->tributa_exclusivamente_regimen_simplificado ? 'Sí' : 'No',
-            'Autoliq. Conjunta' => $company->autoliquidacion_conjunta ? 'Sí' : 'No',
-            'Decl. Concurso' => $company->declarado_concurso_acreedores ? 'Sí' : 'No',
-            'Fecha Concurso' => $company->fecha_concurso_acreedores,
-            'Criterio Caja' => $company->regimen_especial_criterio_caja ? 'Sí' : 'No',
-            'Prorrata Especial' => $company->aplicacion_prorrata_especial ? 'Sí' : 'No',
-            'Exonerado Mod. 390' => $company->exonerado_modelo_390 ? 'Sí' : 'No',
-            'Volumen Oper. 390' => $company->volumen_operaciones_modelo_390,
+            'Inscrito en Registro de Devolución Mensual' => $company->inscrito_registro_devolucion_mensual ? 'Sí' : 'No',
+            'Tributa Exclusivamente en Régimen Simplificado' => $company->tributa_exclusivamente_regimen_simplificado ? 'Sí' : 'No',
+            'Autoliquidación Conjunta' => $company->autoliquidacion_conjunta ? 'Sí' : 'No',
+            'Declarado en Concurso de Acreedores' => $company->declarado_concurso_acreedores ? 'Sí' : 'No',
+            'Fecha Concurso' => \Carbon\Carbon::parse($company->fecha_concurso_acreedores)->format('d/m/Y') ?? '---',
+            'Autoliquidación Concurso Acreedores Preconcursal' => $company->concurso_acreedores_autoliquidacion_preconcursal ? 'Sí' : 'No',
+            'Autoliquidación Concurso Acreedores Postconcursal' => $company->concurso_acreedores_autoliquidacion_postconcursal ? 'Sí' : 'No',
+            'Régimen Especial de Criterio de Caja' => $company->regimen_especial_criterio_caja ? 'Sí' : 'No',
+            'Opción Régimen Especial de Criterio de Caja' => $company->opcion_criterio_caja ? 'Sí' : 'No',
+            'Destinatario Operaciones Régimen Especial de Criterio de Caja' => $company->destinatario_operaciones_regimen_especial_criterio_caja ? 'Sí' : 'No',
+            'Aplicación Prorrata Especial' => $company->aplicacion_prorrata_especial ? 'Sí' : 'No',
+            'Revocación Prorrata Especial' => $company->revocacion_prorrata_especial ? 'Sí' : 'No',
+            'Exonerado del Modelo 390' => $company->exonerado_modelo_390 ? 'Sí' : 'No',
+            'Volumen de Operaciones Modelo 390' => $company->volumen_operaciones_modelo_390,
         ];
 
-        $y = 120;
+        $y = 40;
         foreach ($data as $label => $value) {
             $text = "$label: " . ($value ?? '---');
             $img->text($text, 50, $y, function ($font) {
