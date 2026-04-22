@@ -63,6 +63,10 @@ class ImageGenerationService
         $fileName = 'user_' . $user->id . '.jpg';
         $path = 'images/' . $fileName;
 
+        if (!Storage::disk('public')->exists('images')) {
+            Storage::disk('public')->makeDirectory('images');
+        }
+
         if (Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);
         }
@@ -128,6 +132,10 @@ class ImageGenerationService
 
         $fileName = 'company_' . $company->id . '.jpg';
         $path = 'images/' . $fileName;
+
+        if (!Storage::disk('public')->exists('images')) {
+            Storage::disk('public')->makeDirectory('images');
+        }
 
         if (Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);

@@ -13,7 +13,7 @@ Este proyecto es una aplicación Laravel para la gestión de los datos de la emp
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone <url-del-repositorio>
+   git clone https://github.com/gabrielpenaranda/prueba_tecnica.git
    cd prueba_tecnica
    ```
 
