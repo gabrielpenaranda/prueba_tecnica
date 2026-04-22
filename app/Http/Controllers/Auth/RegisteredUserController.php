@@ -14,14 +14,17 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Services\UserService;
+use App\Services\ImageGenerationService;
 
 class RegisteredUserController extends Controller
 {
     protected $userService;
+    protected $imageService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, ImageGenerationService $imageService)
     {
         $this->userService = $userService;
+        $this->imageService = $imageService;
     }
 
     /**
@@ -61,6 +64,10 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        // Genera imagenes
+        $this->imageService->generateUserImage($user);
+        $this->imageService->generateCompanyImage($user->company);
 
         return redirect(RouteServiceProvider::HOME);
     }

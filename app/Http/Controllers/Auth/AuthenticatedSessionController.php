@@ -9,9 +9,16 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Services\ImageGenerationService;
 
 class AuthenticatedSessionController extends Controller
 {
+    protected $imageService;
+
+    public function __construct(ImageGenerationService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
     /**
      * Display the login view.
      */
@@ -28,6 +35,12 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        $user = Auth::user();
+
+        // Genera imagenes
+        $this->imageService->generateUserImage($user);
+        $this->imageService->generateCompanyImage($user->company);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
