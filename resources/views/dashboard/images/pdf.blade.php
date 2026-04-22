@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>User and Company Data</title>
+    <title>Datos de Usuario y Compañia</title>
     <style>
         body {
             font-family: sans-serif;
@@ -31,13 +31,26 @@
 </head>
 
 <body>
-    <div class="image-container">
-        <img src="{{ public_path($userImage) }}" alt="User Image">
-    </div>
+    <!-- Foto del Usuario posicionada por coordenadas -->
+    @if(isset($userPhoto))
+        <div style="position: absolute; left: 50px; top: 125px;">
+            <img src="{{ public_path($userPhoto) }}" style="width: 80px; height: 80px; border: 1px solid #ddd;">
+        </div>
+    @endif
 
-    <div class="image-container">
-        <img src="{{ public_path($companyImage) }}" alt="Company Image">
-    </div>
+    <!-- Elementos posicionados por coordenadas desde el controlador -->
+    @foreach($data as $item)
+        <div style="
+                            position: absolute; 
+                            left: {{ $item['x'] }}px; 
+                            top: {{ $item['y'] }}px; 
+                            font-size: {{ $item['size'] ?? 12 }}px;
+                        ">
+            {{ $item['text'] }}
+        </div>
+    @endforeach
+
+
 </body>
 
 </html>

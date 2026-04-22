@@ -4,7 +4,7 @@ Este proyecto es una aplicación Laravel para la gestión de los datos de la emp
 
 ## Requisitos
 
-- PHP >= 8.1
+- PHP >= 8.3 (Versión mínima para el uso de Intervention Image)
 - Composer
 - Extensión GD de PHP (necesaria para Intervention Image)
 - MySQL o MariaDB
