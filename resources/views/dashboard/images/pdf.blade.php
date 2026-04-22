@@ -31,21 +31,21 @@
 </head>
 
 <body>
-    <!-- Foto del Usuario posicionada por coordenadas -->
+    <!-- Foto del Usuario -->
     @if(isset($userPhoto))
         <div style="position: absolute; left: 50px; top: 125px;">
             <img src="{{ public_path($userPhoto) }}" style="width: 80px; height: 80px; border: 1px solid #ddd;">
         </div>
     @endif
 
-    <!-- Elementos posicionados por coordenadas desde el controlador -->
+    <!-- Datos -->
     @foreach($data as $item)
         <div style="
-                            position: absolute; 
-                            left: {{ $item['x'] }}px; 
-                            top: {{ $item['y'] }}px; 
-                            font-size: {{ $item['size'] ?? 12 }}px;
-                        ">
+                                position: absolute; 
+                                left: {{ $item['x'] }}px; 
+                                top: {{ $item['y'] }}px; 
+                                font-size: {{ $item['size'] ?? 12 }}px;
+                            ">
             {{ $item['text'] }}
         </div>
     @endforeach
