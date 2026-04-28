@@ -24,15 +24,18 @@ class ImageGenerationService
         // Canvas
         $width = 600;
         $height = 400;
-        $img = $this->manager->createImage($width, $height)->fill('#ffffff');
+        /* $img = $this->manager->createImage($width, $height)->fill('#ffffff'); */
+        $img = $this->manager->create($width, $height)->fill('#ffffff');
 
         // Foto del usuario
         if ($user->photo && Storage::disk('public')->exists(str_replace('storage/', '', $user->photo))) {
             $photoPath = storage_path('app/public/' . str_replace('storage/', '', $user->photo));
-            $userPhoto = $this->manager->decodePath($photoPath);
+            /* $userPhoto = $this->manager->decodePath($photoPath); */
+            $userPhoto = $this->manager->read($photoPath);
             $userPhoto->cover(150, 150);
 
-            $img->insert($userPhoto, 0, 50, 'top-center');
+            /* $img->insert($userPhoto, 0, 50, 'top-center'); */
+            $img->place($userPhoto, 'top-center', 0, 50);
         }
 
         // Nombre
@@ -85,7 +88,8 @@ class ImageGenerationService
         // Canvas
         $width = 800;
         $height = 800;
-        $img = $this->manager->createImage($width, $height)->fill('#ffffff');
+        /* $img = $this->manager->createImage($width, $height)->fill('#ffffff'); */
+        $img = $this->manager->create($width, $height)->fill('#ffffff');
 
         // Nombre Compañia
         /* $img->text($company->business_name, 50, 50, function ($font) {
